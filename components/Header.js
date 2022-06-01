@@ -1,20 +1,23 @@
-import {useContext} from 'react'
+import {useState, useEffect} from "react"
 import Link from 'next/link'
+import { getCategories } from "../services"
 
-const categories = [
-    {name: "Albums", slug: "albums"},
-    {name: "Guitars", slug: "guitars"},
-    {name: "Amplifiers", slug: "amplifiers"},
-]
 
 export default function Header() {
+    const [categories, setCategories] = useState([])
+
+    useEffect(() => {
+      getCategories()
+      .then((newCategories) => setCategories(newCategories))
+    }, [])
+  
   return (
     <div className="container mx-auto px-10 mb-8">
         <div className="border-b w-full inline-block border-blue-400 py-8">
             <div className="block md:float-left">
                 <Link href="/">
                     <span className="cursor-pointer font-bold text-4xl text-white">
-                        TheMusicBlog
+                        The Sound
                     </span>
                 </Link>
             </div>
